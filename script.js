@@ -9,34 +9,34 @@ const gifStages = [
     "https://media1.tenor.com/m/uDugCXK4vI4AAAAC/chiikawa-hachiware.gif"  // 7 crying runaway
 ]
 
-const KhôngMessages = [
-    "Không",
-    "Ui bấm lộn ròi kìa 😦",
-    "Chắc chuaa 😾",
-    "Hoi mà huhu" ,
-    "Chọn lại đi nà 🙆",
-    "Ok đi mò 🥹",
-    "Lại lần nữa ii",
-    "Cơ hội cuối cùng 😾",
-    "Đố mẹ bắt được em 😜",
+const noMessages = [
+    "No",
+    "Are you positive? 🤔",
+    "Pookie please... 🥺",
+    "If you say no, I will be really sad...",
+    "I will be very sad... 😢",
+    "Please??? 💔",
+    "Don't do this to me...",
+    "Last chance! 😭",
+    "You can't catch me anyway 😜"
 ]
 
-const OkTeasePokes = [
-    "Thử nhấn ok đi, con biết mẹ muốn vậy mà 😺",
-    "Hoi mà thử đi 👀",
-    "Bực chưa 😈",
-    "Bấm đi mò có bất ngờ á 😏",
+const yesTeasePokes = [
+    "try saying no first... I bet you want to know what happens 😏",
+    "go on, hit no... just once 👀",
+    "you're missing out 😈",
+    "click no, I dare you 😏"
 ]
 
-let OkTeasedCount = 0
+let yesTeasedCount = 0
 
-let KhôngClickCount = 0
+let noClickCount = 0
 let runawayEnabled = false
 let musicPlaying = true
 
 const catGif = document.getElementById('cat-gif')
-const OkBtn = document.getElementById('Ok-btn')
-const KhôngBtn = document.getElementById('Không-btn')
+const yesBtn = document.getElementById('yes-btn')
+const noBtn = document.getElementById('no-btn')
 const music = document.getElementById('bg-music')
 
 // Autoplay: audio starts muted (bypasses browser policy), unmute immediately
@@ -65,11 +65,11 @@ function toggleMusic() {
     }
 }
 
-function handleOkClick() {
+function handleYesClick() {
     if (!runawayEnabled) {
-        // Tease her to try Không first
-        const msg = OkTeasePokes[Math.min(OkTeasedCount, OkTeasePokes.length - 1)]
-        OkTeasedCount++
+        // Tease her to try No first
+        const msg = yesTeasePokes[Math.min(yesTeasedCount, yesTeasePokes.length - 1)]
+        yesTeasedCount++
         showTeaseMessage(msg)
         return
     }
@@ -84,24 +84,24 @@ function showTeaseMessage(msg) {
     toast._timer = setTimeout(() => toast.classList.remove('show'), 2500)
 }
 
-function handleKhôngClick() {
-    KhôngClickCount++
+function handleNoClick() {
+    noClickCount++
 
     // Cycle through guilt-trip messages
-    const msgIndex = Math.min(KhôngClickCount, KhôngMessages.length - 1)
-    KhôngBtn.textContent = KhôngMessages[msgIndex]
+    const msgIndex = Math.min(noClickCount, noMessages.length - 1)
+    noBtn.textContent = noMessages[msgIndex]
 
-    // Grow the Ok button bigger each time
-    const currentSize = parseFloat(window.getComputedStyle(OkBtn).fontSize)
-    OkBtn.style.fontSize = `${currentSize * 1.35}px`
-    const padY = Math.min(18 + KhôngClickCount * 5, 60)
-    const padX = Math.min(45 + KhôngClickCount * 10, 120)
-    OkBtn.style.padding = `${padY}px ${padX}px`
+    // Grow the Yes button bigger each time
+    const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize)
+    yesBtn.style.fontSize = `${currentSize * 1.35}px`
+    const padY = Math.min(18 + noClickCount * 5, 60)
+    const padX = Math.min(45 + noClickCount * 10, 120)
+    yesBtn.style.padding = `${padY}px ${padX}px`
 
-    // Shrink Không button to contrast
-    if (KhôngClickCount >= 2) {
-        const KhôngSize = parseFloat(window.getComputedStyle(KhôngBtn).fontSize)
-        KhôngBtn.style.fontSize = `${Math.max(KhôngSize * 0.85, 10)}px`
+    // Shrink No button to contrast
+    if (noClickCount >= 2) {
+        const noSize = parseFloat(window.getComputedStyle(noBtn).fontSize)
+        noBtn.style.fontSize = `${Math.max(noSize * 0.85, 10)}px`
     }
 
     // Swap cat GIF through stages
@@ -109,7 +109,7 @@ function handleKhôngClick() {
     swapGif(gifStages[gifIndex])
 
     // Runaway starts at click 5
-    if (KhôngClickCount >= 5 && !runawayEnabled) {
+    if (noClickCount >= 5 && !runawayEnabled) {
         enableRunaway()
         runawayEnabled = true
     }
@@ -124,23 +124,22 @@ function swapGif(src) {
 }
 
 function enableRunaway() {
-    KhôngBtn.addEventListener('mouseover', runAway)
-    KhôngBtn.addEventListener('touchstart', runAway, { passive: true })
+    noBtn.addEventListener('mouseover', runAway)
+    noBtn.addEventListener('touchstart', runAway, { passive: true })
 }
 
 function runAway() {
     const margin = 20
-    const btnW = KhôngBtn.offsetWidth
-    const btnH = KhôngBtn.offsetHeight
+    const btnW = noBtn.offsetWidth
+    const btnH = noBtn.offsetHeight
     const maxX = window.innerWidth - btnW - margin
     const maxY = window.innerHeight - btnH - margin
 
     const randomX = Math.random() * maxX + margin / 2
     const randomY = Math.random() * maxY + margin / 2
 
-    KhôngBtn.style.position = 'fixed'
-    KhôngBtn.style.left = `${randomX}px`
-    KhôngBtn.style.top = `${randomY}px`
-    KhôngBtn.style.zIndex = '50'
+    noBtn.style.position = 'fixed'
+    noBtn.style.left = `${randomX}px`
+    noBtn.style.top = `${randomY}px`
+    noBtn.style.zIndex = '50'
 }
-       
