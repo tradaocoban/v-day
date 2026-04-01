@@ -88,7 +88,7 @@ function handleKhôngClick() {
     KhôngClickCount++
 
     // Cycle through guilt-trip messages
-    const msgIndex = Math.min(KhôngClickCount, KhônhMessages.length - 1)
+    const msgIndex = Math.min(KhôngClickCount, KhôngMessages.length - 1)
     KhôngBtn.textContent = KhôngMessages[msgIndex]
 
     // Grow the Yes button bigger each time
