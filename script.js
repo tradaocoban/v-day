@@ -9,7 +9,7 @@ const gifStages = [
     "https://media1.tenor.com/m/uDugCXK4vI4AAAAC/chiikawa-hachiware.gif"  // 7 crying runaway
 ]
 
-const noMessages = [
+const KhôngMessages = [
     "Không",
     "Ui bấm lộn gòi kìa 😦",
     "Chắc chuaa 😾",
@@ -21,7 +21,7 @@ const noMessages = [
     "Đố mẹ bắt được em😜"
 ]
 
-const yesTeasePokes = [
+const OkTeasePokes = [
     "Thử nói không ii, con biết mẹ muốn vậy mà 😏",
     "Thử đi mò 👀",
     "Bực chưa 😈",
