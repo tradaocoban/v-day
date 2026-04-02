@@ -9,7 +9,7 @@ const gifStages = [
     "https://media1.tenor.com/m/uDugCXK4vI4AAAAC/chiikawa-hachiware.gif"  // 7 crying runaway
 ]
 
-const KhôngMessages = [
+const khôngMessages = [
     "Không",
     "Ui bấm lộn gòi kìa 😦",
     "Chắc chuaa 😾",
@@ -21,22 +21,22 @@ const KhôngMessages = [
     "Đố mẹ bắt được em😜"
 ]
 
-const OkTeasePokes = [
+const okTeasePokes = [
     "Thử nói không ii, con biết mẹ muốn vậy mà 😏",
     "Thử đi mò 👀",
     "Bực chưa 😈",
     "Hong cho chọn đou 😜"
 ]
 
-let yesTeasedCount = 0
+let okTeasedCount = 0
 
-let noClickCount = 0
+let khôngClickCount = 0
 let runawayEnabled = false
 let musicPlaying = true
 
 const catGif = document.getElementById('cat-gif')
-const yesBtn = document.getElementById('yes-btn')
-const noBtn = document.getElementById('no-btn')
+const okBtn = document.getElementById('yes-btn')
+const khôngBtn = document.getElementById('no-btn')
 const music = document.getElementById('bg-music')
 
 // Autoplay: audio starts muted (bypasses browser policy), unmute immediately
@@ -65,15 +65,15 @@ function toggleMusic() {
     }
 }
 
-function handleYesClick() {
+function handleOkClick() {
     if (!runawayEnabled) {
         // Tease her to try No first
-        const msg = yesTeasePokes[Math.min(yesTeasedCount, yesTeasePokes.length - 1)]
-        yesTeasedCount++
+        const msg = okTeasePokes[Math.min(okTeasedCount, okTeasePokes.length - 1)]
+        okTeasedCount++
         showTeaseMessage(msg)
         return
     }
-    window.location.href = 'yes.html'
+    window.location.href = 'ok.html'
 }
 
 function showTeaseMessage(msg) {
@@ -84,32 +84,32 @@ function showTeaseMessage(msg) {
     toast._timer = setTimeout(() => toast.classList.remove('show'), 2500)
 }
 
-function handleNoClick() {
-    noClickCount++
+function handleKhôngClick() {
+    khôngClickCount++
 
     // Cycle through guilt-trip messages
-    const msgIndex = Math.min(noClickCount, noMessages.length - 1)
-    noBtn.textContent = noMessages[msgIndex]
+    const msgIndex = Math.min(khôngClickCount, khôngMessages.length - 1)
+    khôngBtn.textContent = khôngMessages[msgIndex]
 
-    // Grow the Yes button bigger each time
-    const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize)
-    yesBtn.style.fontSize = `${currentSize * 1.35}px`
-    const padY = Math.min(18 + noClickCount * 5, 60)
-    const padX = Math.min(45 + noClickCount * 10, 120)
-    yesBtn.style.padding = `${padY}px ${padX}px`
+    // Grow the Không button bigger each time
+    const currentSize = parseFloat(window.getComputedStyle(okBtn).fontSize)
+    okBtn.style.fontSize = `${currentSize * 1.35}px`
+    const padY = Math.min(18 + khôngClickCount * 5, 60)
+    const padX = Math.min(45 + khôngClickCount * 10, 120)
+    okBtn.style.padding = `${padY}px ${padX}px`
 
-    // Shrink No button to contrast
-    if (noClickCount >= 2) {
-        const noSize = parseFloat(window.getComputedStyle(noBtn).fontSize)
-        noBtn.style.fontSize = `${Math.max(noSize * 0.85, 10)}px`
+    // Shrink Không button to contrast
+    if (khôngClickCount >= 2) {
+        const khôngSize = parseFloat(window.getComputedStyle(khôngBtn).fontSize)
+        khôngBtn.style.fontSize = `${Math.max(khôngSize * 0.85, 10)}px`
     }
 
     // Swap cat GIF through stages
-    const gifIndex = Math.min(noClickCount, gifStages.length - 1)
+    const gifIndex = Math.min(khôngClickCount, gifStages.length - 1)
     swapGif(gifStages[gifIndex])
 
     // Runaway starts at click 5
-    if (noClickCount >= 5 && !runawayEnabled) {
+    if (khôngClickCount >= 5 && !runawayEnabled) {
         enableRunaway()
         runawayEnabled = true
     }
@@ -124,22 +124,22 @@ function swapGif(src) {
 }
 
 function enableRunaway() {
-    noBtn.addEventListener('mouseover', runAway)
-    noBtn.addEventListener('touchstart', runAway, { passive: true })
+    khôngBtn.addEventListener('mouseover', runAway)
+    khôngBtn.addEventListener('touchstart', runAway, { passive: true })
 }
 
 function runAway() {
     const margin = 20
-    const btnW = noBtn.offsetWidth
-    const btnH = noBtn.offsetHeight
+    const btnW = khôngBtn.offsetWidth
+    const btnH = khôngBtn.offsetHeight
     const maxX = window.innerWidth - btnW - margin
     const maxY = window.innerHeight - btnH - margin
 
     const randomX = Math.random() * maxX + margin / 2
     const randomY = Math.random() * maxY + margin / 2
 
-    noBtn.style.position = 'fixed'
-    noBtn.style.left = `${randomX}px`
-    noBtn.style.top = `${randomY}px`
-    noBtn.style.zIndex = '50'
+    khôngBtn.style.position = 'fixed'
+    khôngBtn.style.left = `${randomX}px`
+    khôngBtn.style.top = `${randomY}px`
+    khôngBtn.style.zIndex = '50'
 }
